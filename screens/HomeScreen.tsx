@@ -37,14 +37,14 @@ const HomeScreen = ({ navigation }: any) => {
             style={styles.primaryButton}
             onPress={() => navigation.navigate('Login')}
           >
-            <Text style={styles.buttonText}>Sign In</Text>
+            <Text style={styles.buttonText}>Log In</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('Register')}
           >
             <Text style={styles.linkText}>
-              Don’t have an account? <Text style={styles.link}>Sign up now</Text>
+              Don’t have an account? <Text style={styles.link}>Register now</Text>
             </Text>
           </TouchableOpacity>
         </View>
