@@ -1,9 +1,13 @@
-import React from 'react';
-import AuthStack from './AuthStack';
+import React from "react";
+import { useAuth } from "@/context/AuthContext";
+
+import AuthStack from "./AuthStack";
+import AppStack from "./AppStack";
 
 const AppNavigator = () => {
-  return <AuthStack />
-   
+  const { isLoggedIn } = useAuth();
+
+  return isLoggedIn ? <AppStack /> : <AuthStack />;
 };
 
 export default AppNavigator;
