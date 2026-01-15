@@ -1,8 +1,7 @@
 import React from 'react'
-import HomeScreen from '@/screens/HomeScreen'
+import AppNavigator from '@/navigation/AppNavigator'
 
 export default function index() {
-  return (
-    <HomeScreen/>  
-  )
+  return <AppNavigator/>  
+  
 }
