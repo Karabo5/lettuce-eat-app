@@ -1,51 +1,95 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type User = {
+export type User = {
   name: string;
   surname: string;
   email: string;
+  password: string;
   phone: string;
   address: string;
+  cardName?: string;
+  cardNumber?: string;
+  expiry?: string;
+  cvv?: string;
+  role?: "user" | "admin";
 };
 
 type AuthContextType = {
   user: User | null;
-  isLoggedIn: boolean;
-  login: (userData: User) => void;
-  logout: () => void;
+  users: User[];
+  register: (user: User) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  updateUser: (updatedUser: User) => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: any) => {
+  const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User | null>(null);
 
-  const login = (userData: User) => {
-    setUser(userData);
+  useEffect(() => {
+    const loadData = async () => {
+      const usersJSON = await AsyncStorage.getItem("users");
+      const currentUserJSON = await AsyncStorage.getItem("user");
+      if (usersJSON) setUsers(JSON.parse(usersJSON));
+      if (currentUserJSON) setUser(JSON.parse(currentUserJSON));
+    };
+    loadData();
+  }, []);
+
+  const saveUsers = async (newUsers: User[]) => {
+    setUsers(newUsers);
+    await AsyncStorage.setItem("users", JSON.stringify(newUsers));
   };
 
-  const logout = () => {
-    setUser(null);
+  const saveUser = async (newUser: User | null) => {
+    setUser(newUser);
+    if (newUser) {
+      await AsyncStorage.setItem("user", JSON.stringify(newUser));
+    } else {
+      await AsyncStorage.removeItem("user");
+    }
+  };
+
+  const register = async (newUser: User) => {
+    if (users.some((u) => u.email === newUser.email)) {
+      throw new Error("Email already registered");
+    }
+    if (!newUser.role) newUser.role = "user";
+    const updatedUsers = [...users, newUser];
+    await saveUsers(updatedUsers);
+    await saveUser(newUser);
+  };
+
+  const login = async (email: string, password: string) => {
+    const found = users.find((u) => u.email === email);
+    if (!found) throw new Error("Email not registered");
+    if (found.password !== password) throw new Error("Incorrect password");
+    await saveUser(found);
+  };
+
+  const logout = async () => {
+    await saveUser(null);
+  };
+
+  const updateUser = async (updatedUser: User) => {
+    const updatedUsers = users.map((u) =>
+      u.email === updatedUser.email ? updatedUser : u
+    );
+    await saveUsers(updatedUsers);
+    await saveUser(updatedUser);
   };
 
   return (
     <AuthContext.Provider
-      value={{
-        user,
-        isLoggedIn: !!user,
-        login,
-        logout,
-      }}
+      value={{ user, users, register, login, logout, updateUser }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
