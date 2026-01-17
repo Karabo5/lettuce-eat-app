@@ -28,6 +28,19 @@ const MenuScreen = ({ navigation }: any) => {
         style={styles.headerImage}
         imageStyle={{ opacity: 0.6 }}
       >
+        <TouchableOpacity
+          style={styles.adminButton}
+          onPress={() => navigation.navigate("AdminPage")}
+        >
+          <Image
+            source={{
+              uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+            }}
+            style={styles.adminIcon}
+          />
+          <Text style={styles.adminText}>Admin</Text>
+        </TouchableOpacity>
+
         <Text style={styles.logo}>LettUce🍃 {"\n"} Eat!</Text>
         <Text style={styles.tagline}>
           <Text style={styles.highlight}>LettUce{"\n"}</Text>
@@ -59,9 +72,7 @@ const MenuScreen = ({ navigation }: any) => {
                   <Text style={styles.price}>R {item.price.toFixed(2)}</Text>
                   <TouchableOpacity
                     style={styles.addButton}
-                    onPress={() =>
-                      navigation.navigate("FoodDetails", { item })
-                    }
+                    onPress={() => navigation.navigate("FoodDetails", { item })}
                   >
                     <Text style={styles.addButtonText}>View / Add</Text>
                   </TouchableOpacity>
@@ -119,17 +130,8 @@ const styles = StyleSheet.create({
   image: { width: "100%", height: 140 },
   info: { padding: 14 },
   name: { fontSize: 16, fontWeight: "600", color: COLORS.text },
-  description: {
-    fontSize: 14,
-    color: "#666",
-    marginVertical: 4,
-  },
-  price: {
-    marginTop: 4,
-    fontSize: 15,
-    fontWeight: "700",
-    color: COLORS.darkGreen,
-  },
+  description: { fontSize: 14, color: "#666", marginVertical: 4 },
+  price: { marginTop: 4, fontSize: 15, fontWeight: "700", color: COLORS.darkGreen },
   addButton: {
     marginTop: 10,
     backgroundColor: COLORS.primary,
@@ -138,6 +140,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButtonText: { color: COLORS.white, fontWeight: "600" },
+
+  // Admin Icon
+  adminButton: {
+    position: "absolute",
+    top: 44,
+    right: 16,
+    alignItems: "center",
+  },
+  adminIcon: { width: 36, height: 38, marginBottom: 2 },
+  adminText: { fontSize: 12, color: COLORS.darkGreen, fontWeight: "800" },
 });
 
 export default MenuScreen;

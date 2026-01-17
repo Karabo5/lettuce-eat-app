@@ -34,21 +34,13 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const stored = await AsyncStorage.getItem(ORDERS_KEY);
-        if (stored) setOrders(JSON.parse(stored));
-      } catch (error) {
-        console.log("Failed to load orders:", error);
-      }
+      const stored = await AsyncStorage.getItem(ORDERS_KEY);
+      if (stored) setOrders(JSON.parse(stored));
     })();
   }, []);
 
   const saveOrders = async (ordersToSave: Order[]) => {
-    try {
-      await AsyncStorage.setItem(ORDERS_KEY, JSON.stringify(ordersToSave));
-    } catch (error) {
-      console.log("Failed to save orders:", error);
-    }
+    await AsyncStorage.setItem(ORDERS_KEY, JSON.stringify(ordersToSave));
   };
 
   const addOrder = (order: Order) => {

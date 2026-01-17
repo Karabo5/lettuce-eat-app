@@ -12,6 +12,7 @@ export type User = {
   cardNumber?: string;
   expiry?: string;
   cvv?: string;
+  role?: "user" | "admin";
 };
 
 type AuthContextType = {
@@ -57,6 +58,7 @@ export const AuthProvider = ({ children }: any) => {
     if (users.some((u) => u.email === newUser.email)) {
       throw new Error("Email already registered");
     }
+    if (!newUser.role) newUser.role = "user";
     const updatedUsers = [...users, newUser];
     await saveUsers(updatedUsers);
     await saveUser(newUser);
@@ -64,15 +66,8 @@ export const AuthProvider = ({ children }: any) => {
 
   const login = async (email: string, password: string) => {
     const found = users.find((u) => u.email === email);
-
-    if (!found) {
-      throw new Error("Email not registered");
-    }
-
-    if (found.password !== password) {
-      throw new Error("Incorrect password");
-    }
-
+    if (!found) throw new Error("Email not registered");
+    if (found.password !== password) throw new Error("Incorrect password");
     await saveUser(found);
   };
 

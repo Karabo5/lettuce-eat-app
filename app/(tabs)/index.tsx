@@ -1,18 +1,20 @@
-import 'react-native-get-random-values';
 import React from "react";
 import AppNavigator from "@/navigation/AppNavigator";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import { OrderProvider } from "@/context/OrderContext";
+import { MenuProvider } from "@/context/MenuContext";
 
 export default function index() {
-  return (
+  return(
+<AuthProvider>
+  <MenuProvider>
     <CartProvider>
-      <AuthProvider>
-        <OrderProvider>
-            <AppNavigator />
-        </OrderProvider>
-      </AuthProvider>
+      <OrderProvider>
+      <AppNavigator />
+      </OrderProvider>
     </CartProvider>
-  );
+  </MenuProvider>
+</AuthProvider>
+  )
 }

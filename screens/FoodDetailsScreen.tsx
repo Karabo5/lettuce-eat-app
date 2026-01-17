@@ -12,6 +12,7 @@ import {
 import { COLORS } from "../theme/colors";
 import { useCart, CartExtra, CartItem } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { MenuExtra } from "@/context/MenuContext";
 
 type FoodDetailsScreenProps = {
   route: {
