@@ -96,6 +96,4 @@ git checkout dev
 
 6. Testing on Android
 
-```
-Download Expo Go on your phone and scan the QR code
-```
+ - Download Expo Go on your phone and scan the QR code
