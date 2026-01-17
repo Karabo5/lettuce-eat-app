@@ -1,50 +1,101 @@
-# Welcome to your Expo app 👋
+# LettuceEat Restaurant
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This React Native application is a restaurant ordering app that allows users to browse menus, view food items, add them to a cart, and place orders. It also includes an **Admin Dashboard** to manage the menu and analyze orders. This project demonstrates proficiency in React Native, state management, navigation, and basic CRUD operations.
 
-1. Install dependencies
+## Features
+
+### User Features
+1. **Registration & Login**
+   - Users can register with email and password.
+   - Required details: First Name, Surname, Contact Number, Address, and Card Details (can use fake cards for testing).
+   - Only registered users can place orders.
+   
+2. **Profile Management**
+   - Users can update their profile details: Name, Surname, Email, Address, Contact Number, and Card Details.
+   - Profiles are linked to the orders users place.
+
+3. **Browsing Food Menu**
+   - Users can view all food items categorized by type (e.g., Dessert, Beverages, Burgers, Mains, Starters).
+   - Each food item displays:
+     - Name
+     - Description (ingredients)
+     - Price
+     - Image
+   - Navigate to a **Food Details Screen** for more information.
+
+4. **Food Details & Customization**
+   - Users can view full food details.
+   - Customizable options include:
+     - Side options (e.g., chips, salad)
+     - Drink options
+     - Extras (e.g., sauces, additional toppings)
+     - Optional ingredients
+     - Quantity selection
+
+5. **Cart Management**
+   - View current items in the cart.
+   - Edit quantity and customize extras.
+   - Remove single items or clear the entire cart.
+   - Navigate to the Checkout screen (registered users only).
+
+6. **Checkout**
+   - Change drop-off address (default: registered address).
+   - View total order cost.
+   - Select/change payment card.
+   - Place orders.
+
+### Admin Features
+1. **Admin Dashboard**
+   - Access restricted to admins only.
+   - Manage food items: Add, Edit, Delete menu items.
+   - Update restaurant information.
+   - View order history.
+
+2. **Analytics**
+   - Bar and Pie charts to visualize order status (Pending, Delivered).
+   - Track total sales.
+
+3. **Profile Management**
+   - Admins can update their profile details.
+   - Logout functionality included.
+
+
+## Installation & Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Karabo5/lettuce-eat-app.git
+
+   cd lettuce-eat-app
+   ```
+2. Open with VS Code
+
+```
+code .
+```
+
+3. Switch to dev branch
+
+```
+git checkout dev
+```
+
+4. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+5. Start the app
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+6. Testing on Android
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Download Expo Go on your phone and scan the QR code
+```
