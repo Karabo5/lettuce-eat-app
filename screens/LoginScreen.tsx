@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
+  Alert,
   StyleSheet,
+  Text,
   TextInput,
   TouchableOpacity,
-  Alert,
+  View,
 } from "react-native";
 import { COLORS } from "../theme/colors";
 
+import { useAuth } from "@/context/AuthContext";
+
 const LoginScreen = ({ navigation }: any) => {
+
+  const { login } = useAuth(); 
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,7 +24,14 @@ const LoginScreen = ({ navigation }: any) => {
       return;
     }
 
-    console.log("Logging in:", email);
+    login({
+      name: "Karabo",
+      surname: "Mogano",
+      email: email,
+      phone: "0606058857",
+      address: "Pretoria",
+    });
+
   };
 
   return (
@@ -113,3 +125,5 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
+
